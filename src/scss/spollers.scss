@@ -1,0 +1,21 @@
+
+
+
+
+// data-spoller-trigger дата атрибут блоку на котором должен идти клик
+// data-spollers родительский блок, оболочка меню аккордеон
+// data-spollers-content  контент спойлера
+
+
+[data-spollers-content] {
+	transition: all 0.3s ease 0s;
+	height: 0;
+	overflow: hidden;
+	padding: 0px;
+}
+[data-spollers].active {
+	[data-spollers-content] {
+		padding: 15px 0px;
+		overflow: "";
+	}
+}

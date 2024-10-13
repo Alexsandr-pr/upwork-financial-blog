@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+	@@include('html/head.html',{
+	"title":"Resources"
+	})
+	<body>
+		<div class="wrapper">
+			@@include('html/header.html',{})
+			<main class="main">
+				<section class="main__top main-top">
+                    <div class="main-top__container">
+                        <h1 class="main-top__title  _anim-items"><span>Discover Resources</span></h1>
+                    </div>
+                </section>
+				<section class="main__resources main-resources">
+					<div class="main-resources__container">
+						<h1 class="main-resources__title">
+							<span>Corporation</span> Tax Calculator
+						</h1>
+						<div class="main-resources__content">
+							<p><strong>Calculate your corporation tax liability based on your net profits</strong></p>
+							<p>You can use this calculator to find out how much corporation tax your limited company will be liable for, which is based on your net profit before taxes.</p>
+							<p><strong>From 1 April 2023 the Corporation Tax rate changes to:</strong></p>
+							<ul>
+								<li>
+									19% for taxable profits below £50,000 (small profit rate)
+								</li>
+								<li>
+									25% for taxable profits above £250,000 (main rate)
+								</li>
+							</ul>
+							<p>Marginal Relief provides a gradual increase in Corporation Tax rate between the small profits rate and the main rate — this allows you to reduce your rate from the 25% main rate.</p>
+						</div>
+					</div>
+				</section>
+
+				<div class="main__tax main-tax">
+					<div class="main-tax__container">
+						<div class="main-tax__body">
+							<div class="main-tax__header tax-header">
+								<div class="tax-header__logo">
+									<img src="@img/logo/logo-tax.png" alt="Logo">
+								</div>
+								<p class="tax-header__text">Corporation Tax Calculator</p>
+							</div>
+							<form class="main-tax__form tax-form">
+								<div class="tax-form__item">
+									
+									<label for="tax-currency" class="tax-form__label">Profits before taxes:</label>
+									<div class="tax-form-input">
+										<img src="@img/currency.png" alt="">
+										<input id="tax-currency" type="text" class="tax-form__input">
+									</div>
+									
+								</div>
+								<div class="tax-form__item">
+									<label for="tax-year" class="tax-form__label">Tax Year:</label>
+									<div class="tax-form-input">
+										<input id="tax-year" type="text" class="tax-form__input">
+									</div>
+									
+								</div>
+								
+							</form>
+							<div class="main-tax__buttons">
+								<button type="submit" class="button">
+									Calculate
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+			@@include('html/footer.html',{})
+		</div>
+		<script src="js/app.min.js"></script>
+	</body>
+</html>
