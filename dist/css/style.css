@@ -1145,6 +1145,7 @@ button {
 
 .main-block-about__images img {
   max-width: 100%;
+  height: auto;
 }
 
 .main-block-about__right {
@@ -1391,9 +1392,18 @@ button {
   width: 100%;
 }
 
-.tax-form-input img {
+.tax-form-input .tax-form-input__currency {
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+          transform: translateY(-50%);
   left: -25px;
   position: absolute;
+}
+
+.tax-form-input .tax-form-input__currency img {
+  width: 13px;
+  height: 17px;
 }
 
 .main-tax__buttons {
@@ -1636,6 +1646,11 @@ button {
   border: 1px solid #B7B7B7;
   -webkit-transition: all 0.3s ease 0s;
   transition: all 0.3s ease 0s;
+}
+
+.contact-right__link img {
+  height: 14px;
+  width: auto;
 }
 
 .main-posts {
