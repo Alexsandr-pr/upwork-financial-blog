@@ -317,6 +317,9 @@ button {
     &:active {
         scale: 0.95;
     }
+    &:disabled {
+        opacity: 0.4;
+    }
 }
 .main__buttons-center {
     width: 100%;
@@ -1689,4 +1692,41 @@ button {
     @media(max-width:767.98px) {
         opacity: 0.4;
     }
+}
+
+/******************************/
+.main__list-post {
+}
+.post-list {
+    padding: 60px 0px 100px 0px;
+}
+.post-list__container {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+}
+.post-list__item {
+}
+.post-list__link {
+}
+.post-list__image {
+    &:not(:last-child) {
+        margin-bottom: 25px;
+    }
+    height: 280px;
+    img {
+        height: 100%;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 16px;
+    }
+}
+.post-list__title {
+    font-size: 22px;
+    line-height: 1; /* 24px */
+    letter-spacing: -0.48px;
+    background: var(--aaa, linear-gradient(80deg, #40AFFF 18.76%, #103AFF 104.07%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

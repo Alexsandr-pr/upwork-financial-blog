@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.min.css?_v=20241015132652">
+	<link rel="stylesheet" href="css/style.min.css?_v=20241015163021">
 	<title>Resources</title>
 </head>
 	<body>
@@ -89,60 +89,104 @@
 							</div>
 							<div class="main-tax__form tax-form">
 								<div class="tax-form__item">
-									
-									<label for="tax-currency" class="tax-form__label">Profits before taxes:</label>
-									<div class="tax-form-input">
-										<div class="tax-form-input__currency">
-											<picture><source srcset="img/currency.webp" type="image/webp"><img width="13" height="17" src="img/currency.png" alt="currency"></picture>
-										</div>
-										<input id="tax-currency" type="number" class="tax-form__input">
+								  <label for="tax-currency" class="tax-form__label">Net profit before tax:</label>
+								  <div class="tax-form-input">
+									<div class="tax-form-input__currency">
+									  <picture><source srcset="img/currency.webp" type="image/webp"><img width="13" height="17" src="img/currency.png" alt="currency"></picture>
 									</div>
-									
+									<input id="tax-currency" type="text" class="tax-form__input">
+								  </div>
 								</div>
 								<div class="tax-form__item">
-									<label for="tax-year" class="tax-form__label">Tax Year:</label>
-									<div class="tax-form-input">
-										<input id="tax-year" type="number" readonly class="tax-form__input">
+								  <label for="tax-year" class="tax-form__label">Corporation Tax:</label>
+								  <div class="tax-form-input">
+									<div class="tax-form-input__currency">
+									  <picture><source srcset="img/currency.webp" type="image/webp"><img width="13" height="17" src="img/currency.png" alt="currency"></picture>
 									</div>
-									
+									<input id="tax-year" type="text" readonly class="tax-form__input">
+								  </div>
 								</div>
-								
-							</div>
-							<div class="main-tax__buttons">
-								<button id="calculate-tax" type="submit" class="button">
-									Calculate
+							  </div>
+							  <div class="main-tax__buttons">
+								<button id="calculate-tax" type="submit" class="button" disabled>
+								  Calculate
 								</button>
-							</div>
-							<script>
-								document.getElementById('calculate-tax').addEventListener('click', function(event) {
-								  event.preventDefault();
-								  const profitBeforeTax = parseFloat(document.getElementById('tax-currency').value);
-									if (isNaN(profitBeforeTax) || profitBeforeTax <= 0) {
-										alert('Please enter a valid profit amount.');
-										return;
-									}
-									
-									const lowerRateLimit = 50000;
-									const higherRateLimit = 250000;
-									const lowerRate = 0.19; 
-									const higherRate = 0.25; 
-									const marginalReliefFraction = 0.015;
-									
-									let taxAmount;
-
-
-									if (profitBeforeTax <= lowerRateLimit) {
-										taxAmount = profitBeforeTax * lowerRate;
-									} else if (profitBeforeTax > lowerRateLimit && profitBeforeTax <= higherRateLimit) {
-										const marginalRelief = (higherRateLimit - profitBeforeTax) * marginalReliefFraction;
-										taxAmount = profitBeforeTax * higherRate - marginalRelief;
-									} else {
-										taxAmount = profitBeforeTax * higherRate;
-									}
-									
-									document.getElementById('tax-year').value = taxAmount.toFixed(2);
+							  </div>
+							  
+							  <script>
+								const inputField = document.getElementById('tax-currency');
+								const calculateButton = document.getElementById('calculate-tax');
+							  
+								
+								function validateInput() {
+								  const value = parseFloat(inputField.value.replace(/,/g, ''));
+								  if (!isNaN(value) && value > 0) {
+									calculateButton.disabled = false;
+								  } else {
+									calculateButton.disabled = true;   
+								  }
+								}
+							  
+								
+								inputField.addEventListener('input', function(event) {
+						
+								  const value = event.target.value.replace(/,/g, '').replace(/[^\d.]/g, '');
+								  
+								  
+								  const formattedValue = Number(value).toLocaleString('en-GB');
+								  event.target.value = formattedValue;
+							  
+								  validateInput();
 								});
-								</script>
+							  
+								
+								inputField.addEventListener('keydown', function(event) {
+								  if (event.key === 'Enter' && !calculateButton.disabled) {
+									event.preventDefault();
+									calculateTax();
+								  }
+								});
+							  
+								function calculateTax() {
+								  const profitBeforeTax = parseFloat(inputField.value.replace(/,/g, ''));
+								  if (isNaN(profitBeforeTax) || profitBeforeTax <= 0) {
+									return;  
+								  }
+							  
+								  const lowerRateLimit = 50000;
+								  const higherRateLimit = 250000;
+								  const lowerRate = 0.19;
+								  const higherRate = 0.25;
+								  const marginalReliefFraction = 0.015;
+							  
+								  let taxAmount;
+							  
+								  if (profitBeforeTax <= lowerRateLimit) {
+									taxAmount = profitBeforeTax * lowerRate;
+								  } else if (profitBeforeTax > lowerRateLimit && profitBeforeTax <= higherRateLimit) {
+									const marginalRelief = (higherRateLimit - profitBeforeTax) * marginalReliefFraction;
+									taxAmount = profitBeforeTax * higherRate - marginalRelief;
+								  } else {
+									taxAmount = profitBeforeTax * higherRate;
+								  }
+							  
+								 
+								  const formattedTax = taxAmount.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+								  document.getElementById('tax-year').value = formattedTax;
+								}
+							  
+							
+								calculateButton.addEventListener('click', function(event) {
+								  event.preventDefault();
+								  calculateTax();
+								});
+							  
+								
+								document.addEventListener('DOMContentLoaded', validateInput);
+							  </script>
+							  
+							
+							  
 						</div>
 					</div>
 				</div>
@@ -151,173 +195,41 @@
                         <h1 class="main-top__title  _anim-items"><span>Our Blog</span></h1>
                     </div>
                 </section>
-				<section class="main__blog main-blog">
-                    <div class="main-blog__container">
-                        <div class="main-blog__body blog-body">
-                            <h2 class="blog-body__title">
-                                Is It Time for Your Business to Hire a Fractional CFO?
-                            </h2>
-                            <p class="blog-body__text blog-body-text">
-                                Navigating the financial complexities of a growing business can be challenging. As your company expands, so does the need for sophisticated financial management. Enter the Fractional CFO—a part-time or contract-based Chief Financial Officer who offers high-level expertise without the full-time commitment.
-                            </p>
-                            <h3 class="blog-body__second-title">
-                                What Is a Fractional CFO?
-                            </h3>
-                            <p class="blog-body__text-bottom blog-body-text">
-                                A Fractional CFO provides the strategic financial services of a traditional CFO but works on a flexible schedule tailored to your business needs. Whether it's a few days a week, a month, or on a project basis, they bring seasoned experience to help steer your financial strategy.
-                            </p>
-                        </div>
-                        <div class="main-blog__images image-effect">
-                            <picture><source srcset="img/main-block/image-blog.webp" type="image/webp"><img src="img/main-block/image-blog.png" alt="Image "></picture>
-                        </div>
-                    </div>
-                </section>
-                <div class="main__posts main-posts">
-                    <picture><source srcset="img/blog/decor.webp" type="image/webp"><img class="blog_decor" src="img/blog/decor.png" alt="decor"></picture>
 
-                    <div class="main-posts__container">
-                        <div class="main-posts__items">
-                            <article class="main-posts__item post-item">
-                                <h2 class="post-item__title">
-                                    Why Consider a Fractional CFO?
-                                </h2>
-                                <div class="post-item__contents post-content">
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Cost-Effective Expertise
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Ideal for startups and SMEs, a Fractional CFO delivers top-tier financial guidance without the expense of a full-time salary and benefits.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Flexibility
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Adjust their involvement as your business needs evolve, scaling up or down accordingly.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            On-Demand Skills
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Access specialized knowledge during pivotal growth stages or complex financial projects.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="main-posts__item post-item">
-                                <h2 class="post-item__title">
-                                    Signs Your Business Might Need One
-                                </h2>
-                                <div class="post-item__contents post-content">
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Rapid Growth
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            If you're scaling quickly, you may need to streamline financial processes to keep pace.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Complex Financial Decisions
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Mergers, acquisitions, or significant investments require expert oversight.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Preparing for Funding
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            A CFO can enhance your financial presentations for investors during funding rounds.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="main-posts__item post-item">
-                                <h2 class="post-item__title">
-                                    Benefits of Hiring a Fractional CFO
-                                </h2>
-                                <div class="post-item__contents post-content">
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Strategic Guidance
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            They provide insights to improve profitability and identify growth opportunities.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Improved Systems
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Implement efficient financial operations and accurate reporting mechanisms.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Investor Relations
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Maintain transparency and build confidence with stakeholders and potential investors.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="main-posts__item post-item">
-                                <h2 class="post-item__title">
-                                    Considerations Before Hiring
-                                </h2>
-                                <div class="post-item__contents post-content">
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Assess the ROI
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Ensure the cost aligns with the value they bring to your business.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Define the Engagement
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Clarify their role, responsibilities, and duration of involvement.
-                                        </p>
-                                    </div>
-                                    <div class="post-content__item">
-                                        <h3 class="post-content__title">
-                                            Team Integration
-                                        </h3>
-                                        <p class="post-content__text blog-body-text">
-                                            Ensure they can collaborate effectively with your existing staff.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="main-posts__item post-item">
-                                <h2 class="post-item__title">
-                                    Conclusion
-                                </h2>
-                                <div class="post-item__contents post-content">
-                                    <div class="post-content__item">
-                                       
-                                        <p class="post-content__text blog-body-text">
-                                            A Fractional CFO can be a game-changer for businesses at a crossroads of growth or facing complex financial landscapes. By providing strategic expertise on a flexible basis, they help position your company for long-term success without the overhead of a full-time executive. Evaluate your current needs and future goals to determine if this could be the right move for your business.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                        
-                    </div>
-                </div>
+				<div class="main__list-post post-list">
+					<div class="post-list__container">
+						<div class="post-list__item">
+							<a href="blog.html" class="post-list__link">
+								<div class="post-list__image">
+									<picture><source srcset="img/main-block/image-blog.webp" type="image/webp"><img src="img/main-block/image-blog.png" alt="Image"></picture>
+								</div>
+								<h2 class="post-list__title">
+									Is It Time for Your Business to Hire a Fractional CFO?
+								</h2>
+							</a>
+						</div>
+						<div class="post-list__item">
+							<a href="blog.html" class="post-list__link">
+								<div class="post-list__image">
+									<picture><source srcset="img/main-block/image-blog.webp" type="image/webp"><img src="img/main-block/image-blog.png" alt="Image"></picture>
+								</div>
+								<h2 class="post-list__title">
+									Is It Time for Your Business to Hire a Fractional CFO?
+								</h2>
+							</a>
+						</div>
+						<div class="post-list__item">
+							<a href="blog.html" class="post-list__link">
+								<div class="post-list__image">
+									<picture><source srcset="img/main-block/image-blog.webp" type="image/webp"><img src="img/main-block/image-blog.png" alt="Image"></picture>
+								</div>
+								<h2 class="post-list__title">
+									Is It Time for Your Business to Hire a Fractional CFO?
+								</h2>
+							</a>
+						</div>
+					</div>
+				</div>
 			</main>
 			<footer class="footer">
     <div class="footer__container">
@@ -385,6 +297,6 @@
     </div>
 </footer>
 		</div>
-		<script src="js/app.min.js?_v=20241015132652"></script>
+		<script src="js/app.min.js?_v=20241015163021"></script>
 	</body>
 </html>
