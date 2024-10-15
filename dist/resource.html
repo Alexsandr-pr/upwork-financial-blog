@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/style.min.css?_v=20241013223154">
+	<link rel="stylesheet" href="css/style.min.css">
 	<title>Resources</title>
 </head>
 	<body>
@@ -13,7 +13,7 @@
     <div class="header__container">
         <div class="header__logo">
             <a href="/">
-                <picture><source srcset="img/logo/logo.webp" type="image/webp"><img src="img/logo/logo.png" alt="Logo"></picture>
+                <img src="img/logo/logo.png" alt="Logo">
             </a>
         </div>
         <nav class="header__menu">
@@ -83,34 +83,64 @@
 						<div class="main-tax__body">
 							<div class="main-tax__header tax-header">
 								<div class="tax-header__logo">
-									<picture><source srcset="img/logo/logo-tax.webp" type="image/webp"><img src="img/logo/logo-tax.png" alt="Logo"></picture>
+									<img src="img/logo/logo-tax.png" alt="Logo">
 								</div>
 								<p class="tax-header__text">Corporation Tax Calculator</p>
 							</div>
-							<form class="main-tax__form tax-form">
+							<div class="main-tax__form tax-form">
 								<div class="tax-form__item">
 									
 									<label for="tax-currency" class="tax-form__label">Profits before taxes:</label>
 									<div class="tax-form-input">
-										<picture><source srcset="img/currency.webp" type="image/webp"><img src="img/currency.png" alt=""></picture>
-										<input id="tax-currency" type="text" class="tax-form__input">
+										<img src="img/currency.png" alt="">
+										<input id="tax-currency" type="number" class="tax-form__input">
 									</div>
 									
 								</div>
 								<div class="tax-form__item">
 									<label for="tax-year" class="tax-form__label">Tax Year:</label>
 									<div class="tax-form-input">
-										<input id="tax-year" type="text" class="tax-form__input">
+										<input id="tax-year" type="number" readonly class="tax-form__input">
 									</div>
 									
 								</div>
 								
-							</form>
+							</div>
 							<div class="main-tax__buttons">
-								<button type="submit" class="button">
+								<button id="calculate-tax" type="submit" class="button">
 									Calculate
 								</button>
 							</div>
+							<script>
+								document.getElementById('calculate-tax').addEventListener('click', function(event) {
+								  event.preventDefault();
+								  const profitBeforeTax = parseFloat(document.getElementById('tax-currency').value);
+									if (isNaN(profitBeforeTax) || profitBeforeTax <= 0) {
+										alert('Please enter a valid profit amount.');
+										return;
+									}
+									
+									const lowerRateLimit = 50000;
+									const higherRateLimit = 250000;
+									const lowerRate = 0.19; 
+									const higherRate = 0.25; 
+									const marginalReliefFraction = 0.015;
+									
+									let taxAmount;
+
+
+									if (profitBeforeTax <= lowerRateLimit) {
+										taxAmount = profitBeforeTax * lowerRate;
+									} else if (profitBeforeTax > lowerRateLimit && profitBeforeTax <= higherRateLimit) {
+										const marginalRelief = (higherRateLimit - profitBeforeTax) * marginalReliefFraction;
+										taxAmount = profitBeforeTax * higherRate - marginalRelief;
+									} else {
+										taxAmount = profitBeforeTax * higherRate;
+									}
+									
+									document.getElementById('tax-year').value = taxAmount.toFixed(2);
+								});
+								</script>
 						</div>
 					</div>
 				</div>
@@ -118,7 +148,7 @@
 			<footer class="footer">
     <div class="footer__container">
         <a href="/" class="footer__logo">
-            <picture><source srcset="img/logo/footer-logo.webp" type="image/webp"><img src="img/logo/footer-logo.png" alt="Logo"></picture>
+            <img src="img/logo/footer-logo.png" alt="Logo">
         </a>
         <div class="footer__body footer-body">
             <div class="footer-body__content footer-content">
@@ -181,6 +211,6 @@
     </div>
 </footer>
 		</div>
-		<script src="js/app.min.js?_v=20241013223154"></script>
+		<script src="js/app.min.js"></script>
 	</body>
 </html>

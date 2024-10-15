@@ -43,30 +43,60 @@
 								</div>
 								<p class="tax-header__text">Corporation Tax Calculator</p>
 							</div>
-							<form class="main-tax__form tax-form">
+							<div class="main-tax__form tax-form">
 								<div class="tax-form__item">
 									
 									<label for="tax-currency" class="tax-form__label">Profits before taxes:</label>
 									<div class="tax-form-input">
 										<img src="@img/currency.png" alt="">
-										<input id="tax-currency" type="text" class="tax-form__input">
+										<input id="tax-currency" type="number" class="tax-form__input">
 									</div>
 									
 								</div>
 								<div class="tax-form__item">
 									<label for="tax-year" class="tax-form__label">Tax Year:</label>
 									<div class="tax-form-input">
-										<input id="tax-year" type="text" class="tax-form__input">
+										<input id="tax-year" type="number" readonly class="tax-form__input">
 									</div>
 									
 								</div>
 								
-							</form>
+							</div>
 							<div class="main-tax__buttons">
-								<button type="submit" class="button">
+								<button id="calculate-tax" type="submit" class="button">
 									Calculate
 								</button>
 							</div>
+							<script>
+								document.getElementById('calculate-tax').addEventListener('click', function(event) {
+								  event.preventDefault();
+								  const profitBeforeTax = parseFloat(document.getElementById('tax-currency').value);
+									if (isNaN(profitBeforeTax) || profitBeforeTax <= 0) {
+										alert('Please enter a valid profit amount.');
+										return;
+									}
+									
+									const lowerRateLimit = 50000;
+									const higherRateLimit = 250000;
+									const lowerRate = 0.19; 
+									const higherRate = 0.25; 
+									const marginalReliefFraction = 0.015;
+									
+									let taxAmount;
+
+
+									if (profitBeforeTax <= lowerRateLimit) {
+										taxAmount = profitBeforeTax * lowerRate;
+									} else if (profitBeforeTax > lowerRateLimit && profitBeforeTax <= higherRateLimit) {
+										const marginalRelief = (higherRateLimit - profitBeforeTax) * marginalReliefFraction;
+										taxAmount = profitBeforeTax * higherRate - marginalRelief;
+									} else {
+										taxAmount = profitBeforeTax * higherRate;
+									}
+									
+									document.getElementById('tax-year').value = taxAmount.toFixed(2);
+								});
+								</script>
 						</div>
 					</div>
 				</div>
