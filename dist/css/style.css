@@ -261,6 +261,7 @@
 
 .header__link.active::after {
   background-color: #3A86FF;
+  display: none;
 }
 
 .header__logo {
@@ -1632,6 +1633,11 @@ button {
       -ms-flex-direction: column;
           flex-direction: column;
   gap: 18px;
+}
+
+.contact-right__link-block {
+  width: 14px;
+  height: 14px;
 }
 
 .contact-right__link {
