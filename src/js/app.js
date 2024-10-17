@@ -4,20 +4,6 @@ flsFunctions.isWebp();
 import burgerMenu from "./ui/burger.js";
 burgerMenu();
 
-//импорт меню аккордеон
-//import  accordion  from "./ui/accordion.js";
-//accordion();
-
-//import tabs from "./ui/tabs.js";
-//tabs(triggerClass, contentClass);
-
-//import DynamicAdapt from "./modules/dynamicadapt.js";
-//const da = new DynamicAdapt("max");
-//da.init();
-
-
-import forms from "./modules/forms.js";
-forms();
 
 document.addEventListener("DOMContentLoaded", function () {
     const addressSpan = document.querySelector(".footer-right__item:first-child .footer-right__link span");

@@ -45,26 +45,41 @@
 				<section class="main__works main-works">
 					<div class="main-works__container">
 						<h2 class="main-works__title title anim-bottom _anim-items">How it works</h2>
+
 						<div class="main-works__items ">
-							<div class="main-works__item work-item  anim-bottom _anim-items">
-								<span class="work-item__number">01</span>
-								<h3 class="work-item__title">Free Consultation</h3>
-								<p class="work-item__text">We start with a free consultation to understand your business's financial goals and accounting requirements.  During this session, we’ll discuss your current accounting processes, the systems you have in place, and your future objectives.</p>
-							</div>
-							<div class="main-works__item work-item  anim-bottom _anim-items">
-								<span class="work-item__number">02</span>
-								<h3 class="work-item__title">Business Analysis</h3>
-								<p class="work-item__text">After the meeting, our team will analyse how we can best support your business and provide you with a tailored accounting package designed specifically for your needs.</p>
-							</div>
-							<div class="main-works__item work-item  anim-bottom _anim-items">
-								<span class="work-item__number">03</span>
-								<h3 class="work-item__title">Accounting Set-up</h3>
-								<p class="work-item__text">Once we begin, if you're a new business, we will help you set up an accounting system and explain all financial deliverables, as well as how we will manage them. If you're an existing business switching from a different accountant, we will ensure a smooth and seamless transition.</p>
-							</div>
-							<div class="main-works__item work-item  anim-bottom _anim-items">
-								<span class="work-item__number">04</span>
-								<h3 class="work-item__title">Ongoing Support</h3>
-								<p class="work-item__text">We provide unlimited ongoing support. If you have any questions or need assistance at any point, our team is always available to help. Whether it’s clarification on a process or advice on a financial decision, we are here to ensure you receive the guidance and support you need, whenever you need it.</p>
+							<div class="main-works__swiper swiper">
+								<div class="main-works__wrapper swiper-wrapper">
+									<div class="main-works__slide swiper-slide">
+										<div class="main-works__item work-item  ">
+											<span class="work-item__number">01</span>
+											<h3 class="work-item__title">Free Consultation</h3>
+											<p class="work-item__text">We start with a free consultation to understand your business's financial goals and accounting requirements.  During this session, we’ll discuss your current accounting processes, the systems you have in place, and your future objectives.</p>
+										</div>
+									</div>
+									<div class="main-works__slide swiper-slide">
+										<div class="main-works__item work-item  ">
+											<span class="work-item__number">02</span>
+											<h3 class="work-item__title">Business Analysis</h3>
+											<p class="work-item__text">After the meeting, our team will analyse how we can best support your business and provide you with a tailored accounting package designed specifically for your needs.</p>
+										</div>
+									</div>
+									<div class="main-works__slide swiper-slide">
+										<div class="main-works__item work-item ">
+											<span class="work-item__number">03</span>
+											<h3 class="work-item__title">Accounting Set-up</h3>
+											<p class="work-item__text">Once we begin, if you're a new business, we will help you set up an accounting system and explain all financial deliverables, as well as how we will manage them. If you're an existing business switching from a different accountant, we will ensure a smooth and seamless transition.</p>
+										</div>
+									</div>
+									<div class="main-works__slide swiper-slide">
+										<div class="main-works__item work-item ">
+											<span class="work-item__number">04</span>
+											<h3 class="work-item__title">Ongoing Support</h3>
+											<p class="work-item__text">We provide unlimited ongoing support. If you have any questions or need assistance at any point, our team is always available to help. Whether it’s clarification on a process or advice on a financial decision, we are here to ensure you receive the guidance and support you need, whenever you need it.</p>
+										</div>
+									</div>
+								</div>
+								<div class="swiper-button-prev"></div>
+								<div class="swiper-button-next"></div>
 							</div>
 						</div>
 					</div>
@@ -93,6 +108,7 @@
 			</main>
 			@@include('html/footer.html',{})
 		</div>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 		<script src="js/app.min.js"></script>
 	</body>
 </html>

@@ -289,7 +289,7 @@ button {
     justify-content: center;
     padding: 10px 16px;
     background: linear-gradient(0deg, #40AFFF -10.98%, #103AFF 120.73%);
-    color: #FFF;
+    color: #FFF !important;
     font-family: Roboto;
     height: 41px;
     border-radius: 8px;
@@ -561,27 +561,25 @@ button {
 }
 
 .main-works__items {
-    display: grid;
-    row-gap: 31px;
-    column-gap: 26px;
-    grid-template-columns: repeat(3,1fr);
-    @media(max-width:991.98px) {
-        grid-template-columns: repeat(2,1fr);
+    .swiper-button-next::after, .swiper-button-prev::after {
+        font-size: 32px; /* размер иконки в кнопке */
     }
-    @media(max-width:767.98px) {
-        gap: 20px;
-    }
-    @media(max-width:487.98px) {
-        grid-template-columns: repeat(1,1fr);
-    }
+}
+
+
+.main-works__swiper .swiper-slide {
+    display: flex;
+    height: auto;
+}
+.main-works__swiper .swiper-wrapper {
+    align-items:stretch;
 }
 
 .work-item {
     padding: 96px 34px 36px 34px;
     border-radius: 30px;
     border: 1px solid #40AFFF;
-    box-shadow: 24px 24px 56px 0px rgba(53, 60, 121, 0.12);
-    backdrop-filter: blur(75px);
+    
     position: relative;
     @media(min-width:991.98px) {
         &:nth-child(4) {
