@@ -62,3 +62,22 @@ function offset(el) {
 
 
 
+const swiper = new Swiper(".main-works__swiper", {
+  
+    spaceBetween: 26,
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+        120: {
+            slidesPerView: 1,
+        },
+        550.98: {
+            slidesPerView: 2,
+        },
+        991.98: {
+            slidesPerView: 3,
+        }
+    }
+})
